@@ -1,5 +1,7 @@
 package com.robosoft.photoplayandroid.ui.fragments
 
+import android.content.res.Configuration
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -30,10 +32,12 @@ class PhotosFragment : BaseFragment() {
 
     private fun setUpAdapter() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
+        Log.i("hello",getScreenType().toString())
         adapter =
-            PhotosAdapter() {
+            PhotosAdapter(screenSize = getScreenType(), itemClickListener = {
                 onItemClick(it.first, it.second)
             }
+            )
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 recyclerView.context,
@@ -85,4 +89,53 @@ class PhotosFragment : BaseFragment() {
             ).show()
         }
     }
+
+    private fun getScreenType(): ScreenSize {
+        val screenSize = getScreenSizeCategory()
+        return when {
+            resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE -> {
+                ScreenSize.LANDSCAPE
+            }
+            screenSize == "small" -> {
+                ScreenSize.SMALL
+            }
+            screenSize == "normal" -> {
+                ScreenSize.NORMAL
+
+            }
+            screenSize == "large" -> {
+                ScreenSize.LARGE
+            }
+            screenSize == "xlarge" -> {
+                ScreenSize.X_LARGE
+            }
+            else -> ScreenSize.NORMAL
+        }
+    }
+
+    // Custom method to get screen size category
+    fun getScreenSizeCategory(): String? {
+        val screenLayout =
+            resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        return when (screenLayout) {
+            Configuration.SCREENLAYOUT_SIZE_SMALL ->                 // small screens are at least 426dp x 320dp
+                "small"
+            Configuration.SCREENLAYOUT_SIZE_NORMAL ->                 // normal screens are at least 470dp x 320dp
+                "normal"
+            Configuration.SCREENLAYOUT_SIZE_LARGE ->                 // large screens are at least 640dp x 480dp
+                "large"
+            Configuration.SCREENLAYOUT_SIZE_XLARGE ->                 // xlarge screens are at least 960dp x 720dp
+                "xlarge"
+            else -> "undefined"
+        }
+    }
+
+    enum class ScreenSize {
+        NORMAL,
+        SMALL,
+        LARGE,
+        X_LARGE,
+        LANDSCAPE
+    }
+
 }
