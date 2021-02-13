@@ -1,4 +1,4 @@
-package com.robosoft.photoplayandroid.base
+package com.robosoft.photoplayandroid.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

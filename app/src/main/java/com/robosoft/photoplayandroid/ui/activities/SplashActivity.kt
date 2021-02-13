@@ -1,10 +1,11 @@
-package com.robosoft.photoplayandroid
+package com.robosoft.photoplayandroid.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.robosoft.photoplayandroid.base.BaseActivity
+import com.robosoft.photoplayandroid.R
+import com.robosoft.photoplayandroid.ui.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
 

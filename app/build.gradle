@@ -8,6 +8,8 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        buildConfigField 'String', 'BASE_URL', "\"https://api.pexels.com/v1/\""
+
         applicationId "com.robosoft.photoplayandroid"
         minSdkVersion 22
         targetSdkVersion 30
@@ -23,6 +25,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
