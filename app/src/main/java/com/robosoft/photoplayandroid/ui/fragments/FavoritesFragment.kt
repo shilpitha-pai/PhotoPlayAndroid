@@ -17,8 +17,7 @@ import com.robosoft.photoplayandroid.utils.Status
 import kotlinx.android.synthetic.main.fragment_photos.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class PhotosFragment : BaseFragment() {
-    private val mainViewModel: MainViewModel by viewModel()
+class FavoritesFragment : BaseFragment() {
     private val favouriteViewModel: FavouriteViewModel by viewModel()
     private val TAG = "BASICS"
     private lateinit var adapter: PhotosAdapter
@@ -27,7 +26,7 @@ class PhotosFragment : BaseFragment() {
 
     override fun setUpView(view: View) {
         setupObserver()
-        mainViewModel.searchPhotos("animals")
+        favouriteViewModel.getFavouritePhotos()
         setUpAdapter()
     }
 
@@ -51,7 +50,7 @@ class PhotosFragment : BaseFragment() {
 
 
     private fun setupObserver() {
-        mainViewModel.images.observe(viewLifecycleOwner) {
+        favouriteViewModel.favoritePhotos.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { photoResults ->
@@ -70,8 +69,8 @@ class PhotosFragment : BaseFragment() {
         }
     }
 
-    private fun renderList(photoResults: PhotoResults) {
-        photoResults.photos.let { adapter.addData(it) }
+    private fun renderList(photo: List<Photo>) {
+         adapter.addData(photo)
         adapter.notifyDataSetChanged()
     }
 
@@ -84,7 +83,9 @@ class PhotosFragment : BaseFragment() {
                 Toast.LENGTH_LONG
             ).show()
         } else {
-            favouriteViewModel.favouritePhoto(photo)
+            favouriteViewModel.deletePhoto(photo)
+            adapter.delete(photo)
+            adapter.notifyDataSetChanged()
             Toast.makeText(
                 activity,
                 "Added to favorites",

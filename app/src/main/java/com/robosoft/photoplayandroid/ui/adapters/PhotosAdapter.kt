@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.main.adapters
+package com.robosoft.photoplayandroid.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,28 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.robosoft.photoplayandroid.R
 import com.robosoft.photoplayandroid.data.model.Photo
 import com.robosoft.photoplayandroid.data.model.Src
-import com.robosoft.photoplayandroid.ui.fragments.PhotosFragment
+import com.robosoft.photoplayandroid.utils.ScreenUtils
 import com.robosoft.photoplayandroid.utils.setImage
-import javax.xml.transform.Source
 
 
-class PhotosAdapter(private val itemClickListener: ((Pair<ACTION, Photo>) -> Unit)? = null,
-private val screenSize: PhotosFragment.ScreenSize) :
+class PhotosAdapter(
+    private val itemClickListener: ((Pair<ACTION, Photo>) -> Unit)? = null,
+    private val screenSize: ScreenUtils.ScreenSize
+) :
     RecyclerView.Adapter<PhotosAdapter.DataViewHolder>() {
 
-    private var itemList: List<Photo>? = null
+    private val itemList: ArrayList<Photo> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)
-        return DataViewHolder(view,screenSize)
+        return DataViewHolder(view, screenSize)
     }
 
-    override fun getItemCount(): Int = itemList?.size ?: 0
+    override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        itemList?.get(position)?.let {
-            holder.bind(it)
-        }
+        holder.bind(itemList[position])
         setViewClickListener(holder, position)
     }
 
@@ -39,14 +38,15 @@ private val screenSize: PhotosFragment.ScreenSize) :
         position: Int
     ) {
         holder.itemView.setOnClickListener {
-            itemClickListener?.invoke(Pair(ACTION.CARD_CLICK, itemList!![position]))
+            itemClickListener?.invoke(Pair(ACTION.CARD_CLICK, itemList[position]))
         }
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
-            itemClickListener?.invoke(Pair(ACTION.BOOKMARK, itemList!![position]))
+            itemClickListener?.invoke(Pair(ACTION.BOOKMARK, itemList[position]))
         }
     }
 
-    class DataViewHolder(itemView: View,private val screenSize: PhotosFragment.ScreenSize) : RecyclerView.ViewHolder(itemView) {
+    class DataViewHolder(itemView: View, private val screenSize: ScreenUtils.ScreenSize) :
+        RecyclerView.ViewHolder(itemView) {
 
         fun bind(result: Photo) {
             itemView.findViewById<ImageView>(R.id.image)
@@ -54,19 +54,24 @@ private val screenSize: PhotosFragment.ScreenSize) :
             itemView.findViewById<TextView>(R.id.photographer).text = result.photographer
         }
 
-        private fun getImage(source: Src):String{
-            return when(screenSize){
-                PhotosFragment.ScreenSize.NORMAL-> source.medium
-                PhotosFragment.ScreenSize.SMALL-> source.small
-                PhotosFragment.ScreenSize.LARGE-> source.large
-                PhotosFragment.ScreenSize.X_LARGE-> source.large2x
-                PhotosFragment.ScreenSize.LANDSCAPE-> source.landscape
+        private fun getImage(source: Src): String {
+            return when (screenSize) {
+                ScreenUtils.ScreenSize.NORMAL -> source.medium
+                ScreenUtils.ScreenSize.SMALL -> source.small
+                ScreenUtils.ScreenSize.LARGE -> source.large
+                ScreenUtils.ScreenSize.X_LARGE -> source.large2x
+                ScreenUtils.ScreenSize.LANDSCAPE -> source.landscape
             }
         }
     }
 
     fun addData(list: List<Photo>) {
-        itemList = list
+        itemList.addAll(list)
+    }
+
+    fun delete(photo: Photo) {
+        itemList.remove(photo)
+        notifyDataSetChanged()
     }
 }
 

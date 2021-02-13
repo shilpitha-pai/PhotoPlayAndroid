@@ -19,6 +19,10 @@ class HomeFragment : BaseFragment() {
         videos.setOnClickListener {
             loadVideosFragment()
         }
+
+        favorite.setOnClickListener {
+            loadFavoritesFragment()
+        }
     }
 
     private fun loadPhotosFragment() {
@@ -32,6 +36,13 @@ class HomeFragment : BaseFragment() {
         activity?.supportFragmentManager!!
             .beginTransaction()
             .replace(R.id.frameContainer, VideosFragment())
+            .commit()
+    }
+
+    private fun loadFavoritesFragment() {
+        activity?.supportFragmentManager!!
+            .beginTransaction()
+            .replace(R.id.frameContainer, FavoritesFragment())
             .commit()
     }
 }
