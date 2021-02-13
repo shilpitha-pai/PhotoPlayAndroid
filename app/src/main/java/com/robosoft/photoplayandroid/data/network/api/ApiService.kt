@@ -22,6 +22,5 @@ interface ApiService {
         const val DEFAULT_PAGE_COUNT = 20
         const val AUTH_KEY =
             "Authorization: 563492ad6f91700001000001459e81db4a73411bb6a504c58834d9a9"
-
     }
 }
