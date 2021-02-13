@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.robosoft.photoplayandroid.R
 import com.robosoft.photoplayandroid.data.model.Photo
 import com.robosoft.photoplayandroid.data.model.PhotoResults
@@ -18,15 +19,17 @@ import kotlinx.android.synthetic.main.fragment_photos.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PhotosFragment : BaseFragment() {
+
     private val mainViewModel: MainViewModel by viewModel()
     private val favouriteViewModel: FavouriteViewModel by viewModel()
     private lateinit var adapter: PhotosAdapter
+    private var pageSize = INITIAL_PAGE_SIZE
 
     override fun getLayout(): Int = R.layout.fragment_photos
 
     override fun setUpView(view: View) {
         setupObserver()
-        mainViewModel.searchPhotos("animals")
+        mainViewModel.searchPhotos(HOME_CATEGORY, INITIAL_PAGE_SIZE)
         setUpAdapter()
     }
 
@@ -46,6 +49,7 @@ class PhotosFragment : BaseFragment() {
             )
         )
         recyclerView.adapter = adapter
+        recyclerView.addOnScrollListener(recyclerPageScrollListener)
     }
 
 
@@ -96,4 +100,16 @@ class PhotosFragment : BaseFragment() {
         }
     }
 
+    private val recyclerPageScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            pageSize += INITIAL_PAGE_SIZE
+            mainViewModel.searchPhotos(HOME_CATEGORY, pageSize)
+        }
+    }
+
+    companion object {
+        const val INITIAL_PAGE_SIZE = 20
+        const val HOME_CATEGORY = "animals"
+    }
 }

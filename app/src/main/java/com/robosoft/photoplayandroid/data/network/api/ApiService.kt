@@ -20,7 +20,7 @@ interface ApiService {
     @Headers(AUTH_KEY)
     @GET("curated")
     fun getBannerImage(
-        @Query("per_page") perPage: Int = DEFAULT_PAGE_COUNT,
+        @Query("per_page") perPage: Int = 1,
         @Query("locale") Locale: String = LOCALE
     ): Single<Response<PhotoResults>>
 

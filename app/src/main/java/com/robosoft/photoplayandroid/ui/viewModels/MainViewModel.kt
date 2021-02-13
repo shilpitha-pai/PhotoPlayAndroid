@@ -28,10 +28,10 @@ class MainViewModel(
     val networkError: LiveData<String>
         get() = _networkError
 
-    fun searchPhotos(query: String) {
+    fun searchPhotos(query: String, itemCount: Int) {
         if (networkHelper.isNetworkConnected()) {
             disposable.addAll(
-                mainRepository.searchPhotos(query)
+                mainRepository.searchPhotos(query, itemCount)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(::onSuccess, ::onFailure)

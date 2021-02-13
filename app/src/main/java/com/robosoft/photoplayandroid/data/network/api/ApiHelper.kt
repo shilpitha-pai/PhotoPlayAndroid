@@ -6,8 +6,8 @@ import retrofit2.Response
 
 class ApiHelper(private val apiService: ApiService) {
 
-    fun searchPhotos(query: String): Single<Response<PhotoResults>> =
-        apiService.searchPhotos(query = query)
+    fun searchPhotos(query: String, itemPerPage: Int): Single<Response<PhotoResults>> =
+        apiService.searchPhotos(query = query, itemPerPage)
 
-    fun getBannerImage():  Single<Response<PhotoResults>> = apiService.getBannerImage()
+    fun getBannerImage(): Single<Response<PhotoResults>> = apiService.getBannerImage()
 }
