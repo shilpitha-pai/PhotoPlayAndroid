@@ -18,31 +18,30 @@ class MainViewModel(
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    private val TAG = "BASICS"
     private val disposable = CompositeDisposable()
 
     private val _images = MutableLiveData<Resource<PhotoResults>>()
     val images: LiveData<Resource<PhotoResults>>
         get() = _images
 
+    private val _networkError = MutableLiveData<String>()
+    val networkError: LiveData<String>
+        get() = _networkError
 
-    // Using Rx Network call
     fun searchPhotos(query: String) {
-        if(networkHelper.isNetworkConnected()) {
+        if (networkHelper.isNetworkConnected()) {
             disposable.addAll(
                 mainRepository.searchPhotos(query)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(::onSuccess, ::onFailure)
             )
-        }
-        else{
-            Log.e("Error", "No network")
+        } else {
+            _networkError.postValue("No network")
         }
     }
 
     private fun onSuccess(value: Response<PhotoResults>) {
-        Log.d(TAG, "search Results: ${value.body()}")
         _images.postValue(Resource.success(value.body()))
 
     }

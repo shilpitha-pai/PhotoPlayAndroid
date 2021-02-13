@@ -51,7 +51,7 @@
                     android:id="@+id/textHeading"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="25dp"
+                    android:layout_margin="@dimen/grid_24"
                     android:gravity="center"
                     android:text="@string/discover_the_world"
                     android:textColor="@android:color/white"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_32"
                     android:layout_margin="@dimen/grid_4"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="@dimen/grid_20"
                     android:background="@drawable/app_logo"
                     android:visibility="gone" />
             </androidx.appcompat.widget.Toolbar>

@@ -2,4 +2,7 @@
     <string name="app_name">PhotoPlayAndroid</string>
     <string name="discover_the_world"><![CDATA[Discover the world’s \nbest photos & videos]]></string>
     <string name="search">Search</string>
+    <string name="photos">Photos</string>
+    <string name="videos">Videos</string>
+    <string name="favorite">Favorites</string>
 </resources>

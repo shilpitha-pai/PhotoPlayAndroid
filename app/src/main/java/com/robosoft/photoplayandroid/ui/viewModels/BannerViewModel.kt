@@ -11,7 +11,6 @@ import com.robosoft.photoplayandroid.utils.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Response
 
 class BannerViewModel(
     private val mainRepository: MainRepository,
@@ -24,12 +23,12 @@ class BannerViewModel(
     val bannerImage: LiveData<Resource<PhotoResults>>
         get() = _bannerImage
 
-    private val _networkError = MutableLiveData<Void>()
-    val networkError: LiveData<Void>
+    private val _networkError = MutableLiveData<String>()
+    val networkError: LiveData<String>
         get() = _networkError
 
     fun getBannerImage() {
-        if(networkHelper.isNetworkConnected()) {
+        if (networkHelper.isNetworkConnected()) {
             disposable.addAll(
                 mainRepository.getBannerImage()
                     .observeOn(AndroidSchedulers.mainThread())
@@ -40,10 +39,8 @@ class BannerViewModel(
                         Log.e("Error", "${it.message}")
                     })
             )
-        }
-        else{
-            Log.e("Error", "NO network")
-
+        } else {
+            _networkError.postValue("No network")
         }
     }
 

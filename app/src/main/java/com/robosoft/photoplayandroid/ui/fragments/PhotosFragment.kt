@@ -34,7 +34,7 @@ class PhotosFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter =
             PhotosAdapter(
-                screenSize = ScreenUtils.getScreenType(activity?.baseContext!!),
+                screenSize = ScreenUtils.getScreenType(requireContext()),
                 itemClickListener = {
                     onItemClick(it.first, it.second)
                 }
@@ -67,6 +67,10 @@ class PhotosFragment : BaseFragment() {
                 }
             }
         }
+        mainViewModel.networkError.observe(this, {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        })
+
     }
 
     private fun renderList(photoResults: PhotoResults) {
@@ -91,4 +95,5 @@ class PhotosFragment : BaseFragment() {
             ).show()
         }
     }
+
 }

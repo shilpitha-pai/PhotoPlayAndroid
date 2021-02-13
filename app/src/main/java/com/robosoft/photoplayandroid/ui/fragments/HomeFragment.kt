@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun loadFavoritesFragment() {
-        activity?.supportFragmentManager!!
+        requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameContainer, FavoritesFragment())
             .commit()

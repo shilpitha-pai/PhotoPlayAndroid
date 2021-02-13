@@ -10,62 +10,61 @@
         android:id="@+id/card_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintDimensionRatio="4:3"
+        android:layout_margin="@dimen/grid_16"
+        app:cardCornerRadius="@dimen/grid_4"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="4:3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingC1lass">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:scaleType="centerInside"
                 android:layout_height="0dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/favorite"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/grid_24"
+                android:layout_height="@dimen/grid_24"
                 android:layout_gravity="end"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="@dimen/grid_20"
+                android:layout_marginEnd="@dimen/grid_20"
                 android:src="@drawable/ic_details_favorite_deselect"
                 app:layout_constraintEnd_toEndOf="@id/image"
-                app:layout_constraintTop_toTopOf="@id/image"/>
+                app:layout_constraintTop_toTopOf="@id/image" />
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/grid_48"
+                android:layout_height="@dimen/grid_48"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginStart="@dimen/grid_24"
+                android:layout_marginBottom="@dimen/grid_24"
                 android:src="@drawable/ic_dummy_profile"
                 app:layout_constraintBottom_toBottomOf="@id/image"
-                app:layout_constraintStart_toStartOf="@id/image"
-                />
+                app:layout_constraintStart_toStartOf="@id/image" />
 
             <TextView
                 android:id="@+id/photographer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginStart= "20dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="40dp"
+                android:layout_marginStart="@dimen/grid_20"
+                android:layout_marginBottom="@dimen/grid_40"
                 android:textColor="@android:color/white"
-                app:layout_constraintStart_toEndOf="@id/profile"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/image"
-                tools:text="photographer"/>
+                app:layout_constraintStart_toEndOf="@id/profile"
+                tools:text="photographer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.robosoft.photoplayandroid.ui.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
@@ -69,6 +70,9 @@ class MainActivity : BaseActivity() {
                         bannerImage.setImage(imageUrl.portrait)
                 }
             }
+        })
+        bannerViewModel.networkError.observe(this, {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
     }
 
