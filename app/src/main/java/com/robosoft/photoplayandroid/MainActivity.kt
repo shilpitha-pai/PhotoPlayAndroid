@@ -2,10 +2,12 @@ package com.robosoft.photoplayandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.robosoft.photoplayandroid.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
     }
+
+    override fun getLayout(): Int =R.layout.activity_main
 }
