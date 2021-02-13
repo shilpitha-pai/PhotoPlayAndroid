@@ -45,4 +45,9 @@ class MainViewModel(
     private fun onFailure(value: Throwable?) {
         Log.e("Error", "${value}")
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }

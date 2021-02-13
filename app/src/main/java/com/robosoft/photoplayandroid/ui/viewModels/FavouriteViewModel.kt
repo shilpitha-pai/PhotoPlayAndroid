@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.robosoft.photoplayandroid.data.database.PhotoVideoDbRepository
 import com.robosoft.photoplayandroid.data.model.Photo
-import com.robosoft.photoplayandroid.utils.NetworkHelper
 import com.robosoft.photoplayandroid.utils.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +15,6 @@ class FavouriteViewModel(
     private val photoVideoDbRepository: PhotoVideoDbRepository
 ) : ViewModel() {
 
-    private val TAG = "BASICS"
     private val disposable = CompositeDisposable()
 
     private val _favoritePhotos = MutableLiveData<Resource<List<Photo>>>()
@@ -30,7 +28,6 @@ class FavouriteViewModel(
                 .subscribeOn(Schedulers.io())
                 .subscribe({ photos ->
                     _favoritePhotos.postValue(Resource.success(photos))
-                    Log.e(TAG, "$photos")
                 }, { error ->
                     Log.e("Error", "${error.message}")
                 })
@@ -43,5 +40,10 @@ class FavouriteViewModel(
 
     fun deletePhoto(photo: Photo) {
         photoVideoDbRepository.deletePhotos(photo)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }
