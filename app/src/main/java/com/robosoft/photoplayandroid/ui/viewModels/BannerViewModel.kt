@@ -13,42 +13,38 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class MainViewModel(
+class BannerViewModel(
     private val mainRepository: MainRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    private val TAG = "BASICS"
     private val disposable = CompositeDisposable()
 
-    private val _images = MutableLiveData<Resource<PhotoResults>>()
-    val images: LiveData<Resource<PhotoResults>>
-        get() = _images
+    private val _bannerImage = MutableLiveData<Resource<PhotoResults>>()
+    val bannerImage: LiveData<Resource<PhotoResults>>
+        get() = _bannerImage
 
+    private val _networkError = MutableLiveData<Void>()
+    val networkError: LiveData<Void>
+        get() = _networkError
 
-    // Using Rx Network call
-    fun searchPhotos(query: String) {
+    fun getBannerImage() {
         if(networkHelper.isNetworkConnected()) {
             disposable.addAll(
-                mainRepository.searchPhotos(query)
+                mainRepository.getBannerImage()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(::onSuccess, ::onFailure)
+                    .subscribe({ result ->
+                        _bannerImage.postValue(Resource.success(result.body()))
+                    }, {
+                        Log.e("Error", "${it.message}")
+                    })
             )
         }
         else{
-            Log.e("Error", "No network")
+            Log.e("Error", "NO network")
+
         }
-    }
-
-    private fun onSuccess(value: Response<PhotoResults>) {
-        Log.d(TAG, "search Results: ${value.body()}")
-        _images.postValue(Resource.success(value.body()))
-
-    }
-
-    private fun onFailure(value: Throwable?) {
-        Log.e("Error", "${value}")
     }
 
     override fun onCleared() {

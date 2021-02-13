@@ -6,7 +6,6 @@ import com.robosoft.photoplayandroid.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
-    private val TAG = "BASICS"
 
     override fun getLayout(): Int = R.layout.fragment_home
 
@@ -26,14 +25,14 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun loadPhotosFragment() {
-        activity?.supportFragmentManager!!
+        requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameContainer, PhotosFragment())
             .commit()
     }
 
     private fun loadVideosFragment() {
-        activity?.supportFragmentManager!!
+        requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameContainer, VideosFragment())
             .commit()

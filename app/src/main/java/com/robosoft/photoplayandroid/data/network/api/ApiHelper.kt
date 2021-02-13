@@ -8,4 +8,6 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun searchPhotos(query: String): Single<Response<PhotoResults>> =
         apiService.searchPhotos(query = query)
+
+    fun getBannerImage():  Single<Response<PhotoResults>> = apiService.getBannerImage()
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PhotoPlayAndroid</string>
+    <string name="discover_the_world"><![CDATA[Discover the world’s \nbest photos & videos]]></string>
+    <string name="search">Search</string>
 </resources>

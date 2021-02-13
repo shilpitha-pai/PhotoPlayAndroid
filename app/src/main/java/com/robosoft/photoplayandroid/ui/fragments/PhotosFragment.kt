@@ -20,7 +20,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class PhotosFragment : BaseFragment() {
     private val mainViewModel: MainViewModel by viewModel()
     private val favouriteViewModel: FavouriteViewModel by viewModel()
-    private val TAG = "BASICS"
     private lateinit var adapter: PhotosAdapter
 
     override fun getLayout(): Int = R.layout.fragment_photos

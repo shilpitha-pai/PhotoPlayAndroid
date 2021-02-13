@@ -6,12 +6,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.robosoft.photoplayandroid.R
 import com.robosoft.photoplayandroid.data.model.Photo
-import com.robosoft.photoplayandroid.data.model.PhotoResults
 import com.robosoft.photoplayandroid.ui.adapters.ACTION
 import com.robosoft.photoplayandroid.ui.adapters.PhotosAdapter
 import com.robosoft.photoplayandroid.ui.base.BaseFragment
 import com.robosoft.photoplayandroid.ui.viewModels.FavouriteViewModel
-import com.robosoft.photoplayandroid.ui.viewModels.MainViewModel
 import com.robosoft.photoplayandroid.utils.ScreenUtils
 import com.robosoft.photoplayandroid.utils.Status
 import kotlinx.android.synthetic.main.fragment_photos.*
@@ -19,7 +17,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : BaseFragment() {
     private val favouriteViewModel: FavouriteViewModel by viewModel()
-    private val TAG = "BASICS"
     private lateinit var adapter: PhotosAdapter
 
     override fun getLayout(): Int = R.layout.fragment_photos
@@ -34,7 +31,7 @@ class FavoritesFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter =
             PhotosAdapter(
-                screenSize = ScreenUtils.getScreenType(activity?.baseContext!!),
+                screenSize = ScreenUtils.getScreenType(requireContext()),
                 itemClickListener = {
                     onItemClick(it.first, it.second)
                 }
